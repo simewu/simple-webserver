@@ -16,9 +16,9 @@ app.get('/:file', (req, res) => {
 });
 
 // Get a file in the lib folder
-// app.get('/lib/:file', (req, res) => {
-// 	res.sendFile(__dirname + '/lib/' + req.params.file);
-// });
+app.get('/lib/:file', (req, res) => {
+	res.sendFile(__dirname + '/lib/' + req.params.file);
+});
 
 
 
