@@ -80,7 +80,6 @@ io.on('connection', (socket) => {
 
 		socket.user.name = name;
 		socket.user.room = room;
-		console.log(socket.user.ipaddress + ' initialized to "' + socket.user.name + '"');
 
 		socket.join(room);
 		socket.emit('initializeResponse', room, '');
@@ -106,6 +105,7 @@ io.on('connection', (socket) => {
 	});
 
 	socket.on('broadcastMessage', (message) => {
+		console.log(socket.user.ipaddress + ' (' + socket.user.name + ')' + ' sent "' + message + '"');
 		if(socket.user.name == '') return;
 		message = sanitizeHtml(message).trim().substring(0, 256);
 		if(message == '') return;
