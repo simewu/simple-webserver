@@ -91,7 +91,7 @@ io.on('connection', (socket) => {
 		console.log(socket.user.ipaddress + ' disconnected.');
 		
 		socket.emit('disconnectedUser', socket.user.name);
-		io.emit('chat', '', socket.user.name + ' left ' + socket.user.room + '.<br>Users online: [' + getUserList(socket.user.room).join(', ') + ']');
+		io.in(socket.user.room).emit('chat', '', socket.user.name + ' left ' + socket.user.room + '.<br>Users online: [' + getUserList(socket.user.room).join(', ') + ']');
 		socket.removeAllListeners();
 	});
 
