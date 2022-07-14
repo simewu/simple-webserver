@@ -129,7 +129,7 @@
 			html += '<td>' + user + '</td>'
 			html += '<td>' + message + '</td>'
 			html += '</tr>'
-			chatFeed.innerHTML += html;
+			chatFeed.innerHTML = html + chatFeed.innerHTML;
 		}
 	</script>
 </html>
