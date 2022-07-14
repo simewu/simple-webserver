@@ -26,7 +26,7 @@
 			}
 
 			#chatBar {
-				width: calc(100% - 170px);
+				width: calc(100% - 85px);
 				text-align: center;
 				margin: 0;
 			}
@@ -58,7 +58,7 @@
 	</head>
 	<body>
 		<div class='wrapper'>
-			<button id='roomBtn' onclick='changeRoom()'>Room</button>
+			<center><h3 id='title'></h3></center>
 			<input id='chatBar' type='text' placeholder='Enter a message' maxlength='256'/>
 			<button id='chatBarBtn' onclick='sendMessage(chatBar.value)'>Send</button>
 			<table id='chatFeed'>
@@ -70,8 +70,8 @@
 
 		let socket = io();
 		let userName = prompt('What is your name?', 'Guest') || 'Guest';
-		let serverName = 'Lobby';
-		socket.emit('initialize', userName, serverName);
+		let serverName = null;
+		changeRoom();
 
 		socket.on('initializeResponse', function(newServerName, errorMessage) {
 			if(errorMessage != '') {
@@ -101,7 +101,7 @@
 
 
 		function connected() {
-			roomBtn.innerText = serverName;
+			title.innerText = serverName;
 			chatFeed.innerHTML = '<tr><th id="chatFeedUserColumn"></th><th id="chatFeedMessageColumn"></th></tr>';
 		}
 
@@ -111,7 +111,7 @@
 				for(let room of rooms) {
 					roomsString += '"' + room[0] + '" has ' + room[1] + ' users\n';
 				}
-				let newServerName = prompt(roomsString + '\nPlease enter a room to join', serverName) || serverName;
+				let newServerName = prompt(roomsString + '\nPlease enter a room to join:', serverName || 'Lobby') || serverName;
 				if(newServerName != serverName) {
 					socket.emit('initialize', userName, newServerName);
 				}
